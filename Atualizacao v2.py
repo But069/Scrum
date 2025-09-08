@@ -3,12 +3,36 @@ import tkinter as tk
 def clicar(botao):
     if botao == "C":
         entrada.delete(0, tk.END)
-    elif botao == "{x]":
-        entrada.delete(len(entrada.get())-1, tk.END)
+    elif botao == "⌫":
+        if len(entrada.get()) > 0:
+            entrada.delete(len(entrada.get())-1, tk.END)
     elif botao == "=":
         try:
-           
-            resultado = eval(entrada.get())
+            expressao = entrada.get().replace(",", ".")
+
+            if "%" in expressao:
+                for op in ["+", "-", "*", "/"]:
+                    if op in expressao:
+                        partes = expressao.split(op)
+                        primeiro = float(partes[0])
+                        segundo = float(partes[1].replace("%", ""))
+
+                        if op == "+":
+                            resultado = primeiro + (primeiro * segundo / 100)
+                        elif op == "-":
+                            resultado = primeiro - (primeiro * segundo / 100)
+                        elif op == "*":
+                            resultado = primeiro * (segundo / 100)
+                        elif op == "/":
+                            resultado = primeiro / (segundo / 100)
+                        break
+            else:
+                resultado = eval(expressao)
+
+            
+            if isinstance(resultado, float) and resultado.is_integer():
+                resultado = int(resultado)
+
             entrada.delete(0, tk.END)
             entrada.insert(tk.END, str(resultado))
         except:
@@ -23,7 +47,6 @@ janela.title("CalCode")
 janela.geometry("400x600")
 janela.configure(bg="#2b2b2b")
 
-
 entrada = tk.Entry(
     janela, width=15, borderwidth=15,
     font=("Courier New", 24), justify="left",
@@ -31,24 +54,21 @@ entrada = tk.Entry(
 )
 entrada.grid(row=0, column=0, columnspan=6, padx=40, pady=20, sticky="nsew")
 
+
 def precionar_tecla(event):
-    tecla=event.char
-    if tecla.isdigit() or tecla in "()+-*/.,":
-        tecla.insert(tk.END, tecla)
-    elif tecla == '\r':
-        clicar("=")
-    elif tecla == '\x08':
-        clicar ("{x]")
+    return "break"  
+
 janela.bind("<Key>", precionar_tecla)
+
 
 botoes = [
     '(', ')', 'C', '/',
     '7', '8', '9', '*',
     '4', '5', '6', '-',
     '1', '2', '3', '+',
-    '.', '0', '{x]','=', 
+    '.', '0', '%', '=', 
+    '⌫'
 ]
-
 
 cores = {
     "numero": "#4a4a4a",
@@ -62,9 +82,7 @@ cores = {
 row_val = 1
 col_val = 0
 
-
 for botao in botoes:
-
     if botao.isdigit() or botao == '.':
         cor_bg = cores["numero"]
     elif botao in ["/", "*", "-", "+"]:
