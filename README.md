@@ -60,9 +60,11 @@ Clique em "Close"
 
 Sua maquina (PC ou Smartphone) contem Vscode ou algum app que abra codigos Python.
 
+Caso esteja no Pc é recomendado baixar o VSCode com o seguinte link: https://code.visualstudio.com/download
 
 ![5](https://github.com/user-attachments/assets/1162d5cb-c865-42f4-8bc7-b2ec5f853e16)
 
+Clique em download com base no seu PC
 ![6](https://github.com/user-attachments/assets/182d3882-f006-4c72-9feb-6b5e6e614a9f)
 
 
@@ -79,7 +81,7 @@ Sua maquina (PC ou Smartphone) contem Vscode ou algum app que abra codigos Pytho
 
 
 
-Caso esteja no Pc é recomendado baixar o VSCode com o seguinte link: https://code.visualstudio.com/download
+
 
 
 
